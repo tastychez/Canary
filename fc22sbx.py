@@ -3,10 +3,5 @@ import board
 import digitalio
 
 # Configure Digital Input
-digital_pin = digitalio.DigitalInOut(board.D2)
-digital_pin.direction = digitalio.Direction.INPUT
-
-while True:
-    # Read High/Low
-    print(f"Digital Value: {digital_pin.value}")
-    time.sleep(0.5)
+fc22 = digitalio.DigitalInOut(board.D2)
+fc22.direction = digitalio.Direction.INPUT
