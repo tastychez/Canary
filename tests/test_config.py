@@ -28,7 +28,9 @@ with open(CONFIG_PATH) as _f:
 REQUIRED_KEYS = [
     "fc22_pin",
     "flying_fish_pin",
-    "cnt5_pin",
+    "dht11_pin",
+    "dht11_temp_threshold",
+    "dht11_humidity_threshold",
     "matrix_clk_pin",
     "matrix_mosi_pin",
     "matrix_cs_pin",
@@ -36,7 +38,10 @@ REQUIRED_KEYS = [
 ]
 
 # Subset of keys whose values must be non-empty strings (pin names)
-PIN_KEYS = [k for k in REQUIRED_KEYS if k != "matrix_brightness"]
+PIN_KEYS = [
+    k for k in REQUIRED_KEYS
+    if k not in ("matrix_brightness", "dht11_temp_threshold", "dht11_humidity_threshold")
+]
 
 
 # ===========================================================================
@@ -70,6 +75,14 @@ class TestConfigJsonStructure:
             f"{key!r} must be a str, got {type(value).__name__}"
         )
         assert value.strip() != "", f"{key!r} must not be blank"
+
+    def test_dht11_temp_threshold_is_number(self):
+        """Temperature threshold must be a number."""
+        assert isinstance(RAW_CONFIG["dht11_temp_threshold"], (int, float))
+
+    def test_dht11_humidity_threshold_is_number(self):
+        """Humidity threshold must be a number."""
+        assert isinstance(RAW_CONFIG["dht11_humidity_threshold"], (int, float))
 
     def test_matrix_brightness_is_integer(self):
         """Brightness must be stored as a JSON integer, not a float or string."""
@@ -114,8 +127,14 @@ class TestConfigModuleExports:
     def test_flying_fish_pin_matches_json(self):
         assert self.cfg.flying_fish_pin == RAW_CONFIG["flying_fish_pin"]
 
-    def test_cnt5_pin_matches_json(self):
-        assert self.cfg.cnt5_pin == RAW_CONFIG["cnt5_pin"]
+    def test_dht11_pin_matches_json(self):
+        assert self.cfg.dht11_pin == RAW_CONFIG["dht11_pin"]
+
+    def test_dht11_temp_threshold_matches_json(self):
+        assert self.cfg.dht11_temp_threshold == RAW_CONFIG["dht11_temp_threshold"]
+
+    def test_dht11_humidity_threshold_matches_json(self):
+        assert self.cfg.dht11_humidity_threshold == RAW_CONFIG["dht11_humidity_threshold"]
 
     def test_matrix_clk_pin_matches_json(self):
         assert self.cfg.matrix_clk_pin == RAW_CONFIG["matrix_clk_pin"]

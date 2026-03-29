@@ -1,7 +1,7 @@
 import time
 
 import led_matrix
-from cnt5 import is_detected as cnt5_detected
+from dht11 import is_alert as dht11_alert
 from fc22sbx import fc22
 from flyingfish import flyingfish
 
@@ -16,12 +16,12 @@ def any_sensor_triggered():
     ---------------
     FC-22 (smoke / gas)    – active LOW: DO pulls LOW when gas detected
     Flying Fish (moisture) – active LOW: DO pulls LOW when water detected
-    CNT5 (IR obstacle)     – active LOW: handled inside is_detected()
+    DHT11 (temp/humidity)  – alert when readings exceed configured thresholds
     """
     fc22_alert = not fc22.value  # LOW → smoke / gas present
     fish_alert = not flyingfish.value  # LOW → moisture present
-    cnt5_alert = cnt5_detected()  # True → obstacle in range
-    return fc22_alert or fish_alert or cnt5_alert
+    heat_or_humid = dht11_alert()  # True → temp or humidity too high
+    return fc22_alert or fish_alert or heat_or_humid
 
 
 # ── Output helpers ─────────────────────────────────────────────────────────────

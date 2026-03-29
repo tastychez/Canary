@@ -7,7 +7,11 @@ with open("config.json") as f:
 # Digital input sensor pins (resolved as strings, e.g. "D4")
 fc22_pin = _config["fc22_pin"]
 flying_fish_pin = _config["flying_fish_pin"]
-cnt5_pin = _config["cnt5_pin"]
+dht11_pin = _config["dht11_pin"]
+
+# DHT11 alert thresholds
+dht11_temp_threshold = _config["dht11_temp_threshold"]
+dht11_humidity_threshold = _config["dht11_humidity_threshold"]
 
 # MAX7219 dot matrix SPI pins
 matrix_clk_pin = _config["matrix_clk_pin"]

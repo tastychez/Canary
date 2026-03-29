@@ -1,7 +1,9 @@
 {
   "fc22_pin": "D27",
   "flying_fish_pin": "D17",
-  "cnt5_pin": "D26",
+  "dht11_pin": "D26",
+  "dht11_temp_threshold": 40,
+  "dht11_humidity_threshold": 80,
   "matrix_clk_pin": "D11",
   "matrix_mosi_pin": "D10",
   "matrix_cs_pin": "D16",

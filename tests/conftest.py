@@ -32,7 +32,7 @@ os.chdir(ROOT)
 
 # board ── one distinct mock sentinel per pin used across the project ----------
 board = MagicMock(name="board")
-for _pin in ("D4", "D5", "D6", "D17", "SCK", "MOSI"):
+for _pin in ("D10", "D11", "D16", "D17", "D26", "D27", "SCK", "MOSI"):
     setattr(board, _pin, MagicMock(name=f"board.{_pin}"))
 
 # digitalio -------------------------------------------------------------------
@@ -48,6 +48,9 @@ matrices = MagicMock(name="adafruit_max7219.matrices")
 adafruit_max7219 = MagicMock(name="adafruit_max7219")
 adafruit_max7219.matrices = matrices  # `from adafruit_max7219 import matrices`
 
+# adafruit_dht -----------------------------------------------------------------
+adafruit_dht = MagicMock(name="adafruit_dht")
+
 # ── 3. Inject into sys.modules ─────────────────────────────────────────────────
 # Use plain assignment (not setdefault) so re-runs of conftest always use
 # these exact objects.
@@ -56,3 +59,4 @@ sys.modules["digitalio"] = digitalio
 sys.modules["busio"] = busio
 sys.modules["adafruit_max7219"] = adafruit_max7219
 sys.modules["adafruit_max7219.matrices"] = matrices
+sys.modules["adafruit_dht"] = adafruit_dht
