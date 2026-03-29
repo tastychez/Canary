@@ -3,6 +3,7 @@ import time
 import led_matrix
 from config import flash_interval
 from dht11 import read as dht11_read
+from fc22sbx import fc22, fc22_2
 from flyingfish import flyingfish
 
 # ── Sensor helpers ─────────────────────────────────────────────────────────────
@@ -21,9 +22,13 @@ def any_sensor_triggered():
     FC-22 (smoke / gas)    – active LOW: DO pulls LOW when gas detected
     Flying Fish (moisture) – active LOW: DO pulls LOW when water detected
     """
+    fc22_raw = fc22.value
+    fc22_2_raw = fc22_2.value
     fish_raw = flyingfish.value
-    fish_alert = not fish_raw   # LOW → moisture present
-    return fish_raw, fish_alert
+    fc22_alert = not fc22_raw       # LOW → smoke / gas present
+    fc22_2_alert = not fc22_2_raw   # LOW → smoke / gas present (sensor 2)
+    fish_alert = not fish_raw       # LOW → moisture present
+    return fc22_raw, fc22_2_raw, fish_raw, fc22_alert, fc22_2_alert, fish_alert
 
 
 # ── Startup ────────────────────────────────────────────────────────────────────
@@ -38,13 +43,15 @@ _last_print = time.monotonic()
 DEBUG_INTERVAL = 1.0
 
 while True:
-    fish_raw, fish_alert = any_sensor_triggered()
-    triggered = fish_alert
+    fc22_raw, fc22_2_raw, fish_raw, fc22_alert, fc22_2_alert, fish_alert = any_sensor_triggered()
+    triggered = fc22_alert or fc22_2_alert or fish_alert
 
     now = time.monotonic()
     if now - _last_print >= DEBUG_INTERVAL:
         print(
-            f"[DEBUG] FlyingFish  raw={fish_raw}  alert={fish_alert} | "
+            f"[DEBUG] FC-22#1  raw={fc22_raw}  alert={fc22_alert} | "
+            f"FC-22#2  raw={fc22_2_raw}  alert={fc22_2_alert} | "
+            f"FlyingFish  raw={fish_raw}  alert={fish_alert} | "
             f"triggered={triggered}"
         )
         _last_print = now

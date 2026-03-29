@@ -1,5 +1,6 @@
 {
   "fc22_pin": "D27",
+  "fc22_2_pin": "D22",
   "flying_fish_pin": "D17",
   "dht11_pin": "D26",
   "dht11_temp_threshold": 40,

@@ -6,6 +6,7 @@ with open("config.json") as f:
 
 # Digital input sensor pins (resolved as strings, e.g. "D4")
 fc22_pin = _config["fc22_pin"]
+fc22_2_pin = _config["fc22_2_pin"]
 flying_fish_pin = _config["flying_fish_pin"]
 dht11_pin = _config["dht11_pin"]
 
