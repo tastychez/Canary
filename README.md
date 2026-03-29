@@ -2,7 +2,7 @@
 A digital canary for mines that detects dangerous gases in real time and maps their spread to prevent accidents and save lives. Built during YHack to explore low-cost, real-time safety systems for hazardous environments.
 
 ## Purpose
-Mining environments can become dangerous without warning due to toxic gas buildup and changing humidity conditions. Canary is designed to act as an early warning system by continuously monitoring environmental data, detecting hazardous conditions, and helping visualize how danger spreads through tunnels. The goal is not just detection, but prediction and awareness—giving miners more time to respond and evacuate safely.
+Mining environments can become dangerous without warning due to toxic gas buildup and changing humidity conditions. Canary is designed to act as an early warning system by continuously monitoring environmental data, detecting hazardous conditions, and helping visualize how danger spreads through tunnels. 
 
 ## Tech Stack
 * Raspberry Pi 4 Model B
